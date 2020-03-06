@@ -4,7 +4,7 @@ Let’s say we building a small application enabling users to retrieve informati
 about the weather in the places of their choosing. Your task is creating a microservice
 responsible for fetching current weather conditions in cities specified in the requests.
 Specification:
-- As a source of the weather information you should use a free API described here.
+- As a source of the weather information you should use a free API described [here](https://openweathermap.org/current).
 - Service should expose one HTTP endpoint that takes a list of city names as a
 query parameter and returns information about current weather in each city.
 - Since free tier account of the OpenWeather API has limited number of API calls,
