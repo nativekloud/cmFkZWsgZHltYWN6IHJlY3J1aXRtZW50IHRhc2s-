@@ -9,8 +9,6 @@ service WeatherService {
     double lat = 2;
   }
 
-
-
   message Weather {
     double id = 1;
     string main = 2;
