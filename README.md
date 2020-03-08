@@ -16,3 +16,9 @@ specify the HTTP port of the server and an API key is a minimum.
 Nice to have:
 - Provide a dockerfile that can be used to build and run the application without the
 need of having the Go toolchain installed.
+
+## notes
+
+https://github.com/briandowns/openweathermap
+
+http://localhost:8080/weatherservice/weather/get?cities[]=test,linux

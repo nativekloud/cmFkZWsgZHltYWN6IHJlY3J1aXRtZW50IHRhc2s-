@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+service WeatherService {
+	rpc Get(Request) returns (Response) {}
+}
+
+  message Coord {
+    double lon = 1;
+    double lat = 2;
+  }
+
+
+
+  message Weather {
+    double id = 1;
+    string main = 2;
+    string description = 3;
+    string icon = 4;
+  }
+
+  message Main {
+    double temp = 1;
+    double feels_like = 3;
+    double temp_min = 4;
+    double temp_max = 5;
+    double pressure = 6;
+    double humidity = 7;
+  }
+
+  message Wind {
+    double speed = 1;
+    double deg = 2;
+  }
+
+
+
+  message Clouds {
+    double all = 1;
+  }
+
+  message Sys {
+    double type = 1;
+    double id = 2;
+    double message = 3;
+    string country = 4;
+    double sunrise = 5;
+    double sunset = 6;
+  }
+
+
+message CurrentWeatherResponse {
+	Coord coord = 1;
+	repeated Weather weather = 2;
+	Main main = 3;
+	Wind wind = 4;
+	Sys sys = 5;
+	Clouds clouds = 6;
+	string name = 7;
+}
+
+
+message Request {
+	repeated string cities = 1;
+}
+
+message Response {
+	repeated CurrentWeatherResponse response = 1;
+}
+
+
