@@ -11,6 +11,13 @@ import (
 /*
 Define API response fields
 */
+
+func NewOpenWeatherMapClient(key string) Client {
+	return OpenWeatherMap{
+		API_KEY: key,
+	}
+}
+
 type OpenWeatherMap struct {
 	API_KEY string
 }
@@ -42,7 +49,7 @@ func makeApiRequest(url string) ([]byte, error) {
 	return body, nil
 }
 
-func (owm *OpenWeatherMap) CurrentWeatherFromCity(city string) ([]byte, error) {
+func (owm OpenWeatherMap) CurrentWeatherFromCity(city string) ([]byte, error) {
 	if owm.API_KEY == "" {
 		// No API keys present, return error
 		return nil, errors.New("No API keys present")
