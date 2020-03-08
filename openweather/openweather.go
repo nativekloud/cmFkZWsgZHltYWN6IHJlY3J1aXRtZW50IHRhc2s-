@@ -8,10 +8,6 @@ import (
 	"time"
 )
 
-/*
-Define API response fields
-*/
-
 func NewOpenWeatherMapClient(key string) Client {
 	return OpenWeatherMap{
 		API_KEY: key,
@@ -26,7 +22,7 @@ const (
 	API_URL string = "api.openweathermap.org"
 )
 
-func makeApiRequest(url string) ([]byte, error) {
+func makeAPIRequest(url string) ([]byte, error) {
 	// Build an http client so we can have control over timeout
 	client := &http.Client{
 		Timeout: time.Second * 2,
@@ -56,7 +52,7 @@ func (owm OpenWeatherMap) CurrentWeatherFromCity(city string) ([]byte, error) {
 	}
 	url := fmt.Sprintf("http://%s/data/2.5/weather?q=%s&units=imperial&APPID=%s", API_URL, city, owm.API_KEY)
 
-	body, err := makeApiRequest(url)
+	body, err := makeAPIRequest(url)
 	if err != nil {
 		return nil, err
 	}

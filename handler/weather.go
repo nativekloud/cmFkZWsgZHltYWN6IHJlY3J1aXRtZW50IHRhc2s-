@@ -15,11 +15,12 @@ type Weather struct {
 
 // Get fetches weather in requested cities
 func (w *Weather) Get(ctx context.Context, req *proto.Request, rsp *proto.Response) error {
-	var g errgroup.Group
-	var response []*proto.CurrentWeatherResponse
+	g, ctx := errgroup.WithContext(ctx)
+	response := make([]*proto.CurrentWeatherResponse, len(req.Cities))
 
 	// range over cities and fetch results
-	for _, city := range req.Cities {
+	for i, city := range req.Cities {
+		i, city := i, city //https://golang.org/doc/faq#closures_and_goroutines
 		g.Go(func() error {
 			currentWeather, err := w.Client.CurrentWeatherFromCity(city)
 			if err != nil {
@@ -28,11 +29,10 @@ func (w *Weather) Get(ctx context.Context, req *proto.Request, rsp *proto.Respon
 			var cwr proto.CurrentWeatherResponse
 			// unmarshal the byte stream into a Go data type
 			jsonErr := json.Unmarshal(currentWeather, &cwr)
-			if jsonErr != nil {
-				return jsonErr
+			if jsonErr == nil {
+				response[i] = &cwr
 			}
-			response = append(response, &cwr)
-			return nil
+			return jsonErr
 		})
 	}
 	// wait for all request to finish or get error
