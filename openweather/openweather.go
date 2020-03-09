@@ -35,6 +35,7 @@ func (api API) request(url string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, errHTTPFailed)
 	}
+
 	defer response.Body.Close()
 	if response.StatusCode != 200 {
 		return nil, errors.New("request failed")

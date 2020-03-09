@@ -23,16 +23,17 @@ func (w *Weather) Get(ctx context.Context, req *proto.Request, rsp *proto.Respon
 		i, city := i, city //https://golang.org/doc/faq#closures_and_goroutines
 		g.Go(func() error {
 			currentWeather, err := w.Client.CurrentWeatherFromCity(city)
-			if err != nil {
-				return err
-			}
-			var cwr proto.CurrentWeatherResponse
-			// unmarshal the byte stream into a proto
-			jsonErr := json.Unmarshal(currentWeather, &cwr)
-			if jsonErr == nil {
+			if err == nil {
+				var cwr proto.CurrentWeatherResponse
+				// unmarshal the byte stream into a proto
+				jsonErr := json.Unmarshal(currentWeather, &cwr)
+				if jsonErr != nil {
+					return err
+				}
 				response[i] = &cwr
 			}
-			return jsonErr
+
+			return err
 		})
 	}
 	// wait for all request to finish or get error

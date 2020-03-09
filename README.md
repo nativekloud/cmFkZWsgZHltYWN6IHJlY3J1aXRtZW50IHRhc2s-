@@ -28,7 +28,7 @@ docker-compose up --scale weather=5
 
 You can browser running services at [http://localhost:8082](http://localhost:8082) and API is served at [http://localhost:8080](http://localhost:8080)
 
-Weatherservice runs here [http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London](http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London)
+Weatherservice runs here ["http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London"](http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London)
 
 
 
