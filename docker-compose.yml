@@ -1,0 +1,13 @@
+api:
+    command: api
+    image: micro/micro:latest
+    ports:
+      - "8080:8080"
+web:
+    command: web
+    image: micro/micro:latest
+    ports:
+      - "8082:8082"
+weather:
+    command: --owm_api_key="d43e2343740586bef488b24ff3418c7c"
+    image: weather-srv:latest
