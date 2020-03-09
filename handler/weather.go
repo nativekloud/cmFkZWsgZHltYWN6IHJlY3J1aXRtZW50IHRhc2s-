@@ -27,7 +27,7 @@ func (w *Weather) Get(ctx context.Context, req *proto.Request, rsp *proto.Respon
 				return err
 			}
 			var cwr proto.CurrentWeatherResponse
-			// unmarshal the byte stream into a Go data type
+			// unmarshal the byte stream into a proto
 			jsonErr := json.Unmarshal(currentWeather, &cwr)
 			if jsonErr == nil {
 				response[i] = &cwr

@@ -23,22 +23,21 @@ func TestCachedClient(t *testing.T) {
 
 	var api = NewCachedClient(client, cache)
 
-	// test gettig from fake client
-	t.Run("get fresh", func(t *testing.T) {
+	t.Run("get fresh results", func(t *testing.T) {
 		res, err := api.CurrentWeatherFromCity("test")
 		require.NoError(t, err)
 		require.Equal(t, expected, res)
 	})
-	// checked cached
-	t.Run("get from cache", func(t *testing.T) {
+
+	t.Run("get results from cache", func(t *testing.T) {
 		var oldExpected = expected
 		client.results = []byte(string(oldExpected) + "new")
 		res, err := api.CurrentWeatherFromCity("test")
 		require.NoError(t, err)
 		require.Equal(t, oldExpected, res)
 	})
-	// flush cache
-	t.Run("flush cache", func(t *testing.T) {
+
+	t.Run("flush cache and get fresh.", func(t *testing.T) {
 		cache.Flush()
 		res, err := api.CurrentWeatherFromCity("test")
 		require.NoError(t, err)

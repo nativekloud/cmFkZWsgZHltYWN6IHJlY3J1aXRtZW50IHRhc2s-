@@ -8,7 +8,11 @@ import (
 	"github.com/pkg/errors"
 )
 
-func NewOpenWeatherMapClient(key string, httpClient *http.Client) Client {
+type HTTPClient interface {
+	Get(string) (*http.Response, error)
+}
+
+func NewOpenWeatherMapClient(key string, httpClient HTTPClient) Client {
 	return API{
 		APIKey:     key,
 		httpClient: httpClient,
@@ -17,7 +21,7 @@ func NewOpenWeatherMapClient(key string, httpClient *http.Client) Client {
 
 type API struct {
 	APIKey     string
-	httpClient *http.Client
+	httpClient HTTPClient
 }
 
 const (
@@ -31,8 +35,10 @@ func (api API) request(url string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, errHTTPFailed)
 	}
-
 	defer response.Body.Close()
+	if response.StatusCode != 200 {
+		return nil, errors.New("request failed")
+	}
 	body, readErr := ioutil.ReadAll(response.Body)
 	if readErr != nil {
 		return nil, errors.Wrap(readErr, errReadResponseFailed)
