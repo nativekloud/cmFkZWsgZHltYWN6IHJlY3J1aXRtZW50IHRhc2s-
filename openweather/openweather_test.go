@@ -37,7 +37,7 @@ func TestOpenWeatherMapClient(t *testing.T) {
 		_, err := client.CurrentWeatherFromCity("London")
 		require.Error(t, err)
 	})
-	t.Run("Sucessful empty response", func(t *testing.T) {
+	t.Run("Sucessful response", func(t *testing.T) {
 		json := `{}`
 		r := ioutil.NopCloser(bytes.NewReader([]byte(json)))
 		client := NewOpenWeatherMapClient("key", &MockHTTPClient{

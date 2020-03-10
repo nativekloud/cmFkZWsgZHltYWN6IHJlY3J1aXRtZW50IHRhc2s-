@@ -56,10 +56,10 @@ message CurrentWeatherResponse {
 	string name = 7;
 }
 
-
 message Request {
 	repeated string cities = 1;
 }
+
 
 message Response {
 	repeated CurrentWeatherResponse response = 1;

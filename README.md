@@ -2,7 +2,7 @@
 # Weather service with caching 
 
 Service is based on [go-micro](https://micro.mu/docs/framework.html) framework simplyfying creating micorservices in go.
-Cache uses go-cache but implementation is decupled nad can be swapped as openweather client is implemented via interface
+Cache uses go-cache but implementation is decupled and can be swapped as openweather client is implemented via interface
 
 # Run
 
@@ -20,7 +20,7 @@ Run docker compose
 docker-compose up &
 ```
 
-You can as well scale number of backend weather services
+You can scale number of backend weather services
 
 ```
 docker-compose up --scale weather=5
@@ -30,19 +30,19 @@ You can browser running services at [http://localhost:8082](http://localhost:808
 
 Weatherservice runs here ["http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London"](http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London)
 
-
+Client at [http://localhost:8082/client](http://localhost:8082/client)
 
 
 ## Usage
 
-A Makefile and docker-compose files are included for convenience
+A Makefile,Docker file and docker-compose files are included for convenience
 
 Build the binary for current OS
 
 ```
 make build
 ```
-Build the binary for use in Docker container
+Build the binary for use in Docker container 
 
 ```
 make build-linux
@@ -61,10 +61,10 @@ make docker
 Run curl example request 
 
 ```
-make live-test
+make request
 ```
 
-Run tests 
+Run tests with coverage
 
 ```
 make test
@@ -89,31 +89,3 @@ specify the HTTP port of the server and an API key is a minimum.
 Nice to have:
 - Provide a dockerfile that can be used to build and run the application without the
 need of having the Go toolchain installed.
-
-## notes
-
-https://github.com/briandowns/openweathermap
-
-http://localhost:8080/weatherservice/WeatherService/get?cities[]=Paris&cities[]=London
-
-go run main.go --owm_api_key="test"
-
-## Usage
-
-A Makefile is included for convenience
-
-Build the binary
-
-```
-make build
-```
-
-Run the service
-```
-./weather-srv
-```
-
-Build a docker image
-```
-make docker
-```
